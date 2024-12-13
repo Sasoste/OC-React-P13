@@ -30,12 +30,12 @@ export const login = createAsyncThunk<string, LoginParams>(
             });
 
             if (!response.ok) {
-                throw new Error('Invalid credentials');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Invalid credentials');
             }
 
             const data = await response.json();
             const token = data.body.token;
-            localStorage.setItem('token', token);
             return token;
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -53,7 +53,6 @@ const authSlice = createSlice({
         logout: (state) => {
             state.token = null;
             state.status = 'idle';
-            localStorage.removeItem('token');
         },
     },
     extraReducers: (builder) => {

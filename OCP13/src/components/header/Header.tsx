@@ -5,19 +5,14 @@ import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@redux/authSlice';
 import { RootState } from '@redux/store';
-import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const user = useSelector((state: RootState) => state.profile.data);
     const isAuthenticated = useSelector((state: RootState) => !!state.auth.token);
 
     const handleLogout = () => {
         dispatch(logout());
-        if (isAuthenticated) {
-            navigate('/');
-        }
     };
 
     return (

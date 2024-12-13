@@ -25,7 +25,6 @@ const SignInForm: React.FC = () => {
     };
 
     React.useEffect(() => {
-        console.log('authStatus:', authStatus);
         if (authStatus === 'succeeded' && window.location.pathname !== '/user') {
             navigate('/user');
         }
